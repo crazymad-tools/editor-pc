@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import './index.scss';
+import EditorUtils from '@/utils/EditorUtils';
 
 interface Props {}
 
@@ -10,7 +11,7 @@ interface Line {
 }
 
 const LINE_HEIGHT: number = 18;
-const DEFAULT_FONT_SIZE: number = 16;
+const DEFAULT_FONT_SIZE: number = EditorUtils.DEFAULT_FONT_SIZE;
 
 const Edtior: React.FC<Props> = props => {
   const inputRef = useRef<any>(null);
