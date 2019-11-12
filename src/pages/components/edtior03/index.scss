@@ -1,0 +1,57 @@
+.editor-container {
+  position: relative;
+  width: 600px;
+  height: 800px;
+  border: 1px dashed gray;
+  margin: 0 auto;
+  cursor: text;
+  font-family: Arial;
+  &:focus-within {
+    .editor-cursor {
+      opacity: 1;
+      animation: cursor-blink 1s infinite;
+    }
+  }
+
+  @keyframes cursor-blink {
+    35% {
+      opacity: 1;
+    }
+    65% {
+      opacity: 0;
+    }
+  }
+  .editor-cursor {
+    position: absolute;
+    height: 16px;
+    width: 2px;
+    background: black;
+    opacity: 0;
+    transform: translateY(1px);
+    transition: all 0.1s;
+  }
+  .editor-real-input {
+    position: absolute;
+    z-index: -1;
+    opacity: 1;
+    left: -1px;
+    top: 100px;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    resize: none;
+  }
+  .inline {
+    display: flex;
+    align-items: center;
+    height: 18px;
+    font-family: Arial;
+    margin: 0;
+  }
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
+}
