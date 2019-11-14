@@ -131,21 +131,30 @@ const Edtior: React.FC<Props> = props => {
   function onClickDown (e: any) {
     let event: any = window.event;
     let {layerX, layerY} = event;
-    let pageRowCount: number = layerY / LINE_HEIGHT;
     let rowCount = 0;
     for (let i = 0, len = lines.length; i < len; i++) {
       if (rowCount + lines[i].inlines.length * LINE_HEIGHT >= layerY) {
         let inlineIndex: number = Math.ceil((layerY - rowCount) / LINE_HEIGHT) - 1;
+        let inline: string = lines[i].inlines[inlineIndex];
         cursorCoor[0] = i;
         cursorCoor[1] = inlineIndex;
-        if (layerX > EditorUtils.getTextWidthByCanvas(lines[i].inlines[inlineIndex])) {
-          layerX = EditorUtils.getTextWidthByCanvas(lines[i].inlines[inlineIndex]);
+        if (layerX > EditorUtils.getTextWidthByCanvas(inline)) {
+          cursorCoor[2] = lines[i].inlines[inlineIndex].length;
+        } else {
+          for (let j = 0; j < inline.length; j++) {
+            
+          }
         }
-        break;
+        setCursorCoor(cursorCoor.concat([]));
+        return;
       }
       rowCount += lines[i].inlines.length * LINE_HEIGHT;
     }
-
+    if (rowCount < layerY) {
+      cursorCoor[0] = lines.length - 1;
+      cursorCoor[1] = lines[cursorCoor[0]].inlines.length - 1;
+      cursorCoor[2] = lines[cursorCoor[0]].inlines[cursorCoor[1]].length;
+    }
     setCursorCoor(cursorCoor.concat([]));
   }
 
